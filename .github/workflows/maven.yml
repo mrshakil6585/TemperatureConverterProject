@@ -1,31 +1,24 @@
-name: Maven Build and Test
+name: Java CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    # FIX: Tell the checkout action to place the code in the root of the runner's working directory.
     - uses: actions/checkout@v4
-      with:
-        path: 'TemperatureConverterProject' 
-    
-    # Setup JDK 21
+
     - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
         java-version: '21'
         distribution: 'temurin'
-        cache: maven
 
-    # Build and Test
     - name: Build and Test with Maven
-      # This tells Maven to look for pom.xml in the correct subdirectory.
+      working-directory: TemperatureConverterProject
       run: mvn -B test
-      working-directory: ./TemperatureConverterProject
