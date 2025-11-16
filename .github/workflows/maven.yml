@@ -23,5 +23,6 @@ jobs:
 
     # Build and Test
     - name: Build and Test with Maven
-      # command to  run JUnit tests defined in pom.xml
+      # CRITICAL FIX: Set the working directory to the repository root (where pom.xml is)
+      working-directory: ./
       run: mvn -B test
