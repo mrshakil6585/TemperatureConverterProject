@@ -11,7 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # FIX: Tell the checkout action to place the code in the root of the runner's working directory.
     - uses: actions/checkout@v4
+      with:
+        path: 'TemperatureConverterProject' 
     
     # Setup JDK 21
     - name: Set up JDK 21
@@ -23,6 +26,6 @@ jobs:
 
     # Build and Test
     - name: Build and Test with Maven
-      # CRITICAL FIX: Set the working directory to the repository root (where pom.xml is)
-      working-directory: ./
+      # This tells Maven to look for pom.xml in the correct subdirectory.
       run: mvn -B test
+      working-directory: ./TemperatureConverterProject
